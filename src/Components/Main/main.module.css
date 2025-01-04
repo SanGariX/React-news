@@ -3,6 +3,7 @@ main {
 	flex-direction: column;
 	width: 100%;
 	gap: 32px;
+	padding: 10px 20px;
 }
 .title {
 	font-size: 28px;

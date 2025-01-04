@@ -83,5 +83,8 @@ h6 {
 body {
 	background-color: gray;
 }
-
-
+::marker {
+	content: none; /* Видаляє маркер */
+	display: none;
+	text-decoration: none;
+}

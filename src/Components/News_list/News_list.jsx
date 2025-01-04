@@ -1,4 +1,4 @@
-import News_list_item from "../News_list_item/News_list_item"
+import News_list_item from "../News_list_item/News_list_item.jsx"
 import styles from "./News_list.module.css"
 const News_list = ({ news }) => {
 	return (

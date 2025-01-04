@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 // import { formatDate } from '../../helpers/formatDate'
-import News_Banner from '../News_Banner/News_Banner'
+import News_Banner from '../News_Banner/News_Banner.jsx'
 import styles from './main.module.css'
-import { getNews } from '../../api/Api_News'
-import News_list from '../News_list/News_list'
+import { getNews } from '../../api/Api_News.js'
+import News_list from '../News_list/News_list.jsx'
 const Main = () => {
 	const [news, setNews] = useState([])
 	useEffect(() => {

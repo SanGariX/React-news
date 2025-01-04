@@ -1,8 +1,13 @@
 import './App.css'
-import Home from './pages/home/Home'
-
+import Header from './Components/Header/Header.jsx'
+import Main from './Components/Main/Main.jsx'
 function App() {
-	return <Home/>
+	return (
+		<>
+			<Header/>
+			<Main/>
+		</>
+	)
 }
 
 export default App

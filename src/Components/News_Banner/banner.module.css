@@ -1,0 +1,28 @@
+.News_Banner {
+	padding: 0 8vw;
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	gap: 12px;
+}
+.title {
+	font-family: 'Inter';
+	font-size: 1.8vw;
+	font-weight: 700;
+}
+.extra {
+	font-size: 1.1vw;
+	color: #6c7072;
+}
+@media screen and (max-width: 768px) {
+	.News_Banner {
+		
+		padding: 0 4vw;
+	}
+	.title {
+		font-size: 4.3vw;
+	}
+	.extra{
+		font-size: 3.3vw;
+	}
+}

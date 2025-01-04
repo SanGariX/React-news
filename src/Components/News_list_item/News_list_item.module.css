@@ -1,0 +1,54 @@
+.wrapper_img {
+	width: 10vw;
+	min-width: 10vw;
+	height: 10vw; 
+	min-height: 10vw;
+
+    align-items: center;
+    justify-content: center;
+    position: relative;
+	overflow: hidden;
+	background-color: #f2f4f5;
+}
+.item_img {
+	height: 10vw;
+}
+.list_item {
+	display: flex;
+	gap: 2vw;
+}
+.list_item div {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.title_item {
+	font-family: 'Inter';
+	font-size: 1.8vw;
+	font-weight: 700;
+}
+.extra{
+font-family: "Inter";
+font-size: 1.1vw;
+color: #6c7072;
+}
+@media screen and (max-width: 768px) {
+	.wrapper_img {
+		width: 18vw;
+		min-width: 18vw;
+		height: 18vw;
+		min-height: 18vw;
+	}
+	.item_img {
+		height: 18vw;
+	}
+	.title_item{
+		font-size: 4.3vw;
+	}
+	.extra{
+		font-size: 3.3vw;
+	}
+	.list_item {
+		gap: 4vw;
+	}
+}

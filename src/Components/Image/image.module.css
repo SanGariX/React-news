@@ -1,0 +1,14 @@
+
+.wrapper {
+	min-height: 30vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: auto;
+	background-color: #f2f4f5;
+}
+
+.image{
+	width: 100%;
+}
+

@@ -1,4 +1,4 @@
- import styles from './skeleton.module.css'
+import styles from './skeleton.module.css'
 const Skeleton = ({ count = 1, type = 'banner' }) => {
 	return (
 		<>
@@ -15,9 +15,7 @@ const Skeleton = ({ count = 1, type = 'banner' }) => {
 				</div>
 			) : (
 				<div className={styles.wrapper}>
-					<li
-						className={type === 'banner' ? styles.banner : styles.item}
-					></li>
+					<li className={type === 'banner' ? styles.banner : styles.item}></li>
 				</div>
 			)}
 		</>

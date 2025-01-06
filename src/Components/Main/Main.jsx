@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-// import { formatDate } from '../../helpers/formatDate'
 import News_Banner from '../News_Banner/News_Banner.jsx'
 import styles from './main.module.css'
 import { getNews } from '../../api/Api_News.js'
@@ -10,13 +9,20 @@ const Main = () => {
 	const [news, setNews] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [currentPage, setCurrentPage] = useState(1)
+	const [countt, setCount] = useState(10)
+	const [infinity, setInfinity] = useState(false)
+	const triggerRef = useRef(null)
 	const totalPage = 10
 	const pageSize = 10
 	const fetchNews = async (currentPage, pageSize) => {
 		try {
 			setIsLoading(true)
 			const response = await getNews(currentPage, pageSize)
-			setNews(response.news)
+			if (infinity) {
+				setNews([...news, ...response.news])
+			} else {
+				setNews([...response.news])
+			}
 			setIsLoading(false)
 		} catch (err) {
 			console.log(err)
@@ -25,19 +31,54 @@ const Main = () => {
 	useEffect(() => {
 		fetchNews(currentPage, pageSize)
 	}, [currentPage])
+	useEffect(() => {
+		let option = {
+			root: null,
+			rootMargin: '200px',
+			threshold: 1.0,
+		}
+		const observer = new IntersectionObserver((entries) => {
+			if (entries[0].isIntersecting) {
+				setInfinity(true)
+				setCount(countt + 10)
+				setCurrentPage(currentPage + 1)
+			}
+		}, option)
+
+		if (triggerRef.current) {
+			observer.observe(triggerRef.current)
+		}
+
+		return () => {
+			if (triggerRef.current) {
+				observer.unobserve(triggerRef.current)
+			}
+		}
+	}, [isLoading])
 	const handleNextPage = () => {
 		if (currentPage < totalPage) {
+			setInfinity(false)
+			setCount(10)
 			setCurrentPage(currentPage + 1)
 		}
 	}
 	const handlePreviousPage = () => {
 		if (currentPage > 1) {
+			setInfinity(false)
+			setCount(10)
 			setCurrentPage(currentPage - 1)
 		}
 	}
 	const handlePage = (pageNumber) => {
+		setInfinity(false)
+		setCount(10)
 		setCurrentPage(pageNumber)
-	}	
+	}
+	const handelPages = () => {
+		setInfinity(true)
+		setCount(countt + 10)
+		setCurrentPage(currentPage + 1)
+	}
 	return (
 		<>
 			<main className={styles.main}>
@@ -54,11 +95,12 @@ const Main = () => {
 					totalPage={totalPage}
 				/>
 				{!isLoading ? (
-					<News_list  news={news} />
+					<News_list news={news} />
 				) : (
-					<Skeleton type='list' count={10} />
+					<Skeleton type='list' count={countt} />
 				)}
-				<div className='react_guard'></div>
+				<div ref={triggerRef} id='trigger'></div>
+				<button onClick={handelPages}>Load More</button>
 			</main>
 		</>
 	)

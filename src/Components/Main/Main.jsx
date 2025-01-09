@@ -23,7 +23,7 @@ const Main = () => {
 			const response = await getNews({
 				currentPage: currentPage,
 				pageSize: pageSize,
-				category: categories === 'All' ? null : categories,
+				category: selectedCategories === 'All' ? null : selectedCategories,
 			})
 			if (infinity) {
 				setNews([...news, ...response.news])

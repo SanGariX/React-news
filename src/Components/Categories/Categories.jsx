@@ -7,8 +7,10 @@ const Categories = ({
 	setSelectedCategories,
 	selectedCategories,
 	setInfinity,
+	setCurrentPage,
 }) => {
 	const claimInfinity = (category) => {
+		setCurrentPage(1)
 		setSelectedCategories(category)
 		setInfinity(false)
 	}

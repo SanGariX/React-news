@@ -103,6 +103,7 @@ const Main = () => {
 					selectedCategories={selectedCategories}
 					setSelectedCategories={setSelectedCategories}
 					setInfinity={setInfinity}
+					setCurrentPage={setCurrentPage}
 				/>
 				{!!news.length && !isLoading ? (
 					<News_Banner item={news[0]} />

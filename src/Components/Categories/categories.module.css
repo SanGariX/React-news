@@ -6,7 +6,15 @@
     overflow-x: auto;
     white-space: nowrap;
     scrollbar-width: 3px;
-    padding: 6px 10px;
+    /* cursor: grab; */
+}
+.swiper{
+    pointer-events: all;
+    touch-action: pan-y;
+}
+.swiperSlide {
+    pointer-events: all;
+    width: 10%;
 }
 .item, .active{
     display: flex;
@@ -14,6 +22,10 @@
     padding: 8px 16px;
     border-radius: 32px;
     background-color: #F2F4F5;
+    cursor: grab;
+    user-select: none;
+    pointer-events: auto;
+    z-index: -4;
 }
 .active{
     background-color: #E7E7FF;

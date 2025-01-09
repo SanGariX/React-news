@@ -5,7 +5,7 @@ import { getCategoryes, getNews } from '../../api/Api_News.js'
 import News_list from '../News_list/News_list.jsx'
 import Skeleton from '../Skeleton/Skeleton.jsx'
 import Pagination from '../Pagination/Pagination.jsx'
-import Categories from '../Categories/categories.jsx'
+import Categories from '../Categories/Categories.jsx'
 const Main = () => {
 	const [news, setNews] = useState([])
 	const [categories, setCategories] = useState([])

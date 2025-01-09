@@ -123,7 +123,7 @@ const Main = () => {
 					<Skeleton type='list' count={countt} />
 				)}
 				<div ref={triggerRef} id='trigger'></div>
-				<button onClick={handelPages}>Load More</button>
+				{!isLoading && <button onClick={handelPages}>Load More</button>}
 			</main>
 		</>
 	)

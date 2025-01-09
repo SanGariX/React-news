@@ -21,8 +21,8 @@ const Main = () => {
 		try {
 			setIsLoading(true)
 			const response = await getNews({
-				currentPage: currentPage,
-				pageSize: pageSize,
+				page_number: currentPage,
+				page_size: pageSize,
 				category: selectedCategories === 'All' ? null : selectedCategories,
 			})
 			if (infinity) {

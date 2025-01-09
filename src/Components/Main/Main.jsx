@@ -1,23 +1,30 @@
 import { useEffect, useRef, useState } from 'react'
 import News_Banner from '../News_Banner/News_Banner.jsx'
 import styles from './main.module.css'
-import { getNews } from '../../api/Api_News.js'
+import { getCategoryes, getNews } from '../../api/Api_News.js'
 import News_list from '../News_list/News_list.jsx'
 import Skeleton from '../Skeleton/Skeleton.jsx'
 import Pagination from '../Pagination/Pagination.jsx'
+import Categories from '../Categories/categories.jsx'
 const Main = () => {
 	const [news, setNews] = useState([])
+	const [categories, setCategories] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [currentPage, setCurrentPage] = useState(1)
-	const [countt, setCount] = useState(10)
+	const [countt, setCount] = useState(0)
 	const [infinity, setInfinity] = useState(false)
+	const [selectedCategories, setSelectedCategories] = useState('All')
 	const triggerRef = useRef(null)
 	const totalPage = 10
 	const pageSize = 10
 	const fetchNews = async (currentPage, pageSize) => {
 		try {
 			setIsLoading(true)
-			const response = await getNews(currentPage, pageSize)
+			const response = await getNews({
+				currentPage: currentPage,
+				pageSize: pageSize,
+				category: categories === 'All' ? null : categories,
+			})
 			if (infinity) {
 				setNews([...news, ...response.news])
 			} else {
@@ -28,14 +35,23 @@ const Main = () => {
 			console.log(err)
 		}
 	}
+	const fetchCategories = async () => {
+		try {
+			const response = await getCategoryes()
+			setCategories(['All', ...response.categories])
+		} catch (err) {
+			console.log(err)
+		}
+	}
+	useEffect(() => {
+		fetchCategories()
+	}, [])
 	useEffect(() => {
 		fetchNews(currentPage, pageSize)
-	}, [currentPage])
+	}, [currentPage, selectedCategories])
 	useEffect(() => {
 		let option = {
-			root: null,
 			rootMargin: '200px',
-			threshold: 1.0,
 		}
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting) {
@@ -82,6 +98,12 @@ const Main = () => {
 	return (
 		<>
 			<main className={styles.main}>
+				<Categories
+					categories={categories}
+					selectedCategories={selectedCategories}
+					setSelectedCategories={setSelectedCategories}
+					setInfinity={setInfinity}
+				/>
 				{!!news.length && !isLoading ? (
 					<News_Banner item={news[0]} />
 				) : (

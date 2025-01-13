@@ -23,7 +23,7 @@ const Categories = ({
 				freeMode={true}
 				grabCursor={true}
 			>
-				{categories.map((category) => (
+				{["All", ...categories].map((category) => (
 					<SwiperSlide
 						key={category}
 						style={{ width: 'auto' }}

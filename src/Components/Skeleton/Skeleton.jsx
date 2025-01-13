@@ -1,5 +1,8 @@
 import styles from './skeleton.module.css'
 const Skeleton = ({ count = 1, type = 'banner' }) => {
+	if(type === 'banner'){
+		count = 1
+	}
 	return (
 		<>
 			{count > 1 ? (

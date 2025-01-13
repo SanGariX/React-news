@@ -1,54 +1,33 @@
 import { useEffect, useRef, useState } from 'react'
-import News_Banner from '../News_Banner/News_Banner.jsx'
 import styles from './main.module.css'
 import { getCategoryes, getNews } from '../../api/Api_News.js'
 import News_list from '../News_list/News_list.jsx'
-import Skeleton from '../Skeleton/Skeleton.jsx'
+import News_Banner from '../News_Banner/News_Banner.jsx'
 import Pagination from '../Pagination/Pagination.jsx'
 import Categories from '../Categories/Categories.jsx'
+import Search from '../Search/Search.jsx'
+import { useDebounce } from '../../helpers/Hooks/useDebounce.js'
+import { PAGE_SIZE, TOTAL_PAGES } from '../../helpers/Constant/Constant.js'
+import { useFetch } from '../../helpers/Hooks/useFetch.js'
 const Main = () => {
-	const [news, setNews] = useState([])
-	const [categories, setCategories] = useState([])
-	const [isLoading, setIsLoading] = useState(true)
 	const [currentPage, setCurrentPage] = useState(1)
 	const [countt, setCount] = useState(0)
-	const [infinity, setInfinity] = useState(false)
 	const [selectedCategories, setSelectedCategories] = useState('All')
+	const [keywords, setKeywords] = useState('')
 	const triggerRef = useRef(null)
-	const totalPage = 10
-	const pageSize = 10
-	const fetchNews = async (currentPage, pageSize) => {
-		try {
-			setIsLoading(true)
-			const response = await getNews({
-				page_number: currentPage,
-				page_size: pageSize,
-				category: selectedCategories === 'All' ? null : selectedCategories,
-			})
-			if (infinity) {
-				setNews([...news, ...response.news])
-			} else {
-				setNews([...response.news])
-			}
-			setIsLoading(false)
-		} catch (err) {
-			console.log(err)
-		}
+	const debouncedKeywords = useDebounce(keywords, 1500)
+	const options = {
+		page_number: currentPage,
+		page_size: PAGE_SIZE,
+		category: selectedCategories === 'All' ? null : selectedCategories,
+		keywords: debouncedKeywords,
 	}
-	const fetchCategories = async () => {
-		try {
-			const response = await getCategoryes()
-			setCategories(['All', ...response.categories])
-		} catch (err) {
-			console.log(err)
-		}
-	}
-	useEffect(() => {
-		fetchCategories()
-	}, [])
-	useEffect(() => {
-		fetchNews(currentPage, pageSize)
-	}, [currentPage, selectedCategories])
+	const { data, isLoading, setInfinity } = useFetch(
+		getNews,
+		options,
+		'fetchPub'
+	)
+	const { data: dataCategories } = useFetch(getCategoryes, '', 'categories')
 	useEffect(() => {
 		let option = {
 			rootMargin: '200px',
@@ -72,7 +51,7 @@ const Main = () => {
 		}
 	}, [isLoading])
 	const handleNextPage = () => {
-		if (currentPage < totalPage) {
+		if (currentPage < TOTAL_PAGES) {
 			setInfinity(false)
 			setCount(10)
 			setCurrentPage(currentPage + 1)
@@ -98,30 +77,28 @@ const Main = () => {
 	return (
 		<>
 			<main className={styles.main}>
-				<Categories
-					categories={categories}
-					selectedCategories={selectedCategories}
-					setSelectedCategories={setSelectedCategories}
-					setInfinity={setInfinity}
-					setCurrentPage={setCurrentPage}
-				/>
-				{!!news.length && !isLoading ? (
-					<News_Banner item={news[0]} />
-				) : (
-					<Skeleton type='banner' count={1} />
-				)}
+				{dataCategories ? (
+					<Categories
+						categories={dataCategories.categories}
+						selectedCategories={selectedCategories}
+						setSelectedCategories={setSelectedCategories}
+						setInfinity={setInfinity}
+						setCurrentPage={setCurrentPage}
+					/>
+				) : null}
+				<Search keywords={keywords} setKeywords={setKeywords} />
+				<News_Banner isLoading={isLoading} item={!!data && data[0]} />
 				<Pagination
 					handleNextPage={handleNextPage}
 					handlePreviousPage={handlePreviousPage}
 					handlePage={handlePage}
 					currentPage={currentPage}
-					totalPage={totalPage}
 				/>
-				{!isLoading ? (
-					<News_list news={news} />
-				) : (
-					<Skeleton type='list' count={countt} />
-				)}
+				<News_list
+					isLoading={isLoading}
+					item={!!data && data}
+					countt={countt}
+				/>
 				<div ref={triggerRef} id='trigger'></div>
 				{!isLoading && <button onClick={handelPages}>Load More</button>}
 			</main>

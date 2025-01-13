@@ -1,9 +1,9 @@
 import { formatTimeAgo } from '../../helpers/formatTimeAgo.js'
 import styles from './News_list_item.module.css'
 const News_list_item = ({ elementsArray }) => {
+	console.log(elementsArray.image)
 	if (elementsArray.image === 'None') {
-		elementsArray.image =
-			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV2aE9UAuHh0rWrhl9kq4xLrKJxcQ0oyAogw&s'
+		return 
 	}
 	return (
 		<li className={styles.list_item}>

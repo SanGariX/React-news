@@ -1,18 +1,21 @@
+import { TOTAL_PAGES } from '../../helpers/Constant/Constant'
 import styles from './pagination.module.css'
 const Pagination = ({
-	totalPage,
 	handleNextPage,
 	handlePreviousPage,
 	handlePage,
 	currentPage,
 }) => {
+	const totalPage = TOTAL_PAGES
 	return (
 		<>
 			<div className={styles.pagination}>
 				<button
 					disabled={currentPage <= 1 ? true : false}
 					onClick={handlePreviousPage}
-					className={`${styles.arrow} ${currentPage <= 1 ? styles.arrowActive : ""}`}
+					className={`${styles.arrow} ${
+						currentPage <= 1 ? styles.arrowActive : ''
+					}`}
 				>
 					{'<'}
 				</button>
@@ -35,7 +38,9 @@ const Pagination = ({
 				<button
 					disabled={currentPage >= 10 ? true : false}
 					onClick={handleNextPage}
-					className={`${styles.arrow} ${currentPage >= 10 ? styles.arrowActive : ""}`}
+					className={`${styles.arrow} ${
+						currentPage >= 10 ? styles.arrowActive : ''
+					}`}
 				>
 					{'>'}
 				</button>

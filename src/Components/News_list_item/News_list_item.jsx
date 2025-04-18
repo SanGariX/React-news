@@ -1,7 +1,6 @@
 import { formatTimeAgo } from '../../helpers/formatTimeAgo.js'
 import styles from './News_list_item.module.css'
 const News_list_item = ({ elementsArray }) => {
-	console.log(elementsArray.image)
 	if (elementsArray.image === 'None') {
 		return 
 	}

@@ -6,7 +6,7 @@ const News_list = ({ item: news }) => {
 		<ul className={styles.list}>
 			{!!news &&
 				news.map((item, idx) =>
-					//item.id крива апішка просто однакові значення кида, я  хз чому але жалується через це, коли поставив індекс то все норм
+					//item.id крива апішка, однакові значення кида
 					!idx ? null : <News_list_item key={idx} elementsArray={item} />
 				)}
 		</ul>

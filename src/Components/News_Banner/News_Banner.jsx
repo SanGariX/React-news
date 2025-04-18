@@ -2,7 +2,7 @@ import { formatTimeAgo } from '../../helpers/formatTimeAgo.js'
 import WithSkeleton from '../../helpers/Hocs/WithSkeleton.jsx'
 import Image from '../Image/Image.jsx'
 import styles from './banner.module.css'
-const News_Banner = ({ item }) => {
+const News_Banner = ({item}) => {
 	return (
 		<div className={styles.News_Banner}>
 			<Image image={!!item && item.image} />
@@ -14,5 +14,4 @@ const News_Banner = ({ item }) => {
 	)
 }
 const NewsBannerWidthSkeleton = WithSkeleton(News_Banner, 'banner')
-
 export default NewsBannerWidthSkeleton

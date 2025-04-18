@@ -8,7 +8,7 @@ const Skeleton = ({ count = 1, type = 'banner' }) => {
 			{count > 1 ? (
 				<div className={styles.wrapper}>
 					<ul className={styles.list}>
-						{[...Array(count)].map((_, idx) => (
+						{[...Array(10)].map((_, idx) => (
 							<li
 								key={idx}
 								className={type === 'banner' ? styles.banner : styles.item}

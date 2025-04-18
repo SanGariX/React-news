@@ -5,7 +5,6 @@ const WithSkeleton = (Component, type) => {
 		if (isLoading) {
 			return <Skeleton type={type} count={countt} />
 		}
-
 		return <Component {...restProps} />
 	}
 }
